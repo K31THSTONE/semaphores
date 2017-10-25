@@ -23,14 +23,13 @@ int main(int argc, char** argv)
     int tflag = 0;
     int pflag = 0;
     int fflag = 0;
-    char *cvalue = NULL;
     int index;
     int c;
 
     opterr = 0;
 
 
-    while ((c = getopt (argc, argv, "ptf:")) != -1)
+    while ((c = getopt (argc, argv, "p:t:f:")) != -1)
       switch (c)
         {
         case 'p':
@@ -42,7 +41,7 @@ int main(int argc, char** argv)
           num_threas = atoi(optarg);
           break;
         case 'c':
-          fvalue = optarg;
+          filename = optarg;
           break;
         case '?':
           if (optopt == 'c')
@@ -61,9 +60,11 @@ int main(int argc, char** argv)
     
     
     // TODO: write initial '0' to file
-    open_file();
-    //write 0
-    close_file();
+    open_file(filename, rw);
+    if(write(filename, "0", 1) < 1){
+      return 1;
+    }
+    close_file(filename);
     
 
     // TODO: create a named semaphore
