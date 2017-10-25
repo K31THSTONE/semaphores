@@ -20,8 +20,9 @@ int main(int argc, char** argv)
     
     
     // TODO: parse arguments
-    int aflag = 0;
-    int bflag = 0;
+    int tflag = 0;
+    int pflag = 0;
+    int fflag = 0;
     char *cvalue = NULL;
     int index;
     int c;
@@ -29,17 +30,19 @@ int main(int argc, char** argv)
     opterr = 0;
 
 
-    while ((c = getopt (argc, argv, "abc:")) != -1)
+    while ((c = getopt (argc, argv, "ptf:")) != -1)
       switch (c)
         {
-        case 'a':
-          aflag = 1;
+        case 'p':
+          pflag = 1;
+          num_procs = atoi(optarg);
           break;
-        case 'b':
+        case 't':
           bflag = 1;
+          num_threas = atoi(optarg);
           break;
         case 'c':
-          cvalue = optarg;
+          fvalue = optarg;
           break;
         case '?':
           if (optopt == 'c')
